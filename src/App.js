@@ -5,6 +5,7 @@ function App() {
        <div>
            <form type="submit">
                <input type="textarea"></input>
+               <span>Wrtite something!</span>
                <button type="submit"></button>
            </form>
        </div>
