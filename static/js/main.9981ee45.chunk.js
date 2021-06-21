@@ -1,2 +1,0 @@
-(this["webpackJsonptodo-react"]=this["webpackJsonptodo-react"]||[]).push([[0],{10:function(t,e,n){"use strict";n.r(e);var c=n(0),o=n.n(c),r=n(3),s=n.n(r),d=(n(8),n(1));var i=function(){return Object(d.jsx)("h1",{children:" Hello World! "})};s.a.render(Object(d.jsx)(o.a.StrictMode,{children:Object(d.jsx)(i,{})}),document.getElementById("root"))},8:function(t,e,n){}},[[10,1,2]]]);
-//# sourceMappingURL=main.9981ee45.chunk.js.map
