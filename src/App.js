@@ -1,37 +1,73 @@
-import React from 'react';
+import React, { useState } from 'react';
+import FilterButton from './components/FilterButton';
+import Todo from './components/Todo';
+import Form from './components/Form';
+import { nanoid } from 'nanoid';
 
-function App() {
+function App(props) {
+    const [tasks, setTasks] = useState(props.tasks);
+
+    function addTask(name) {
+        const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
+        setTasks([...tasks, newTask]);
+    }
+
+    function toggleTaskCompleted(id) {
+        const updatedTasks = tasks.map(task => {
+            if (id === task.id) {
+                return { ...task, completed: !task.completed };
+            }
+            return task;
+        });
+        setTasks(updatedTasks);
+    }
+
+    function deleteTask(id) {
+        const remainingTasks = tasks.filter(task => id !== task.id);
+        setTasks(remainingTasks);
+    }
+
+    function editTask(id) {
+        // const editedTaskList = tasks.map(task => {
+        //     if (id === task.id) {
+        //         return { ...task, name: newName };
+        //     }
+        //     return task;
+        // });
+        // setTasks(editedTaskList);
+    }
+
+    const tasklist = tasks.map(task =>
+        <Todo
+            id={task.id}
+            name={task.name}
+            completed={task.completed}
+            keys={task.id}
+            toggleTaskCompleted={toggleTaskCompleted}
+            deleteTask={deleteTask}
+            editTask={editTask} />);
+
+    const tasksNoun = tasklist.length !== 1 ? 'tasks' : 'task';
+    const headingText = tasklist.length === 0
+        ? 'No Tasks'
+        : `${tasklist.length} ${tasksNoun} remaining`;
+
     return (
-        <div>
+        <div className="todoapp stack-large">
             <h1>TodoMatic</h1>
-            <form>
-                <h2 className="">
-                    <label htmlFor="" className="">What need to be done?</label>
-                </h2>
-
-                <input
-                    type="text"
-                    id="todo-input"
-                    className=""
-                    name="text"
-                    autoComplete="off" />
-                <span>Wrtite something!</span>
-                <button
-                    type="submit"
-                    className="">Add</button>
-            </form>
-            <div className="">
-                <button
-                    type="button" className="" aria-pressed="true">
-                    <span className>Show </span>
-                    <span>all</span>
-                    <span className> tasks</span>
-                </button>
-                <button>Active</button>
-                <button>Completed</button>
+            <Form addTask={addTask} />
+            <div className="filter btn-group stack-exception">
+                <FilterButton />
+                <FilterButton />
+                <FilterButton />
             </div>
-
-            <input type="radio"></input><span>Radio</span>
+            <h2 id="list-heading">{headingText}</h2>
+            <ul
+                rol="list"
+                className="todo-list stack-large stack-exception"
+                aria-labelledby="list-heading">
+                {tasklist}
+            </ul>
         </div>
 
     );
