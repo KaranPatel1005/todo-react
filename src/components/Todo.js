@@ -4,7 +4,7 @@ function Todo(props) {
     const [isEditing, setEditing] = useState(false);
     const [newName, setNewName] = useState('');
 
-    fonction handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
         props.editTask(props.id, newName);
         setNewName("");
